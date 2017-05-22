@@ -1,0 +1,14 @@
+{
+  "name": "micayael/commands-bundle",
+  "type": "symfony-bundle",
+  "description": "Useful commands for Symfony2+",
+  "keywords": ["command"],
+  "homepage": "",
+  "license": "MIT",
+  "require": {
+    "php": ">=5.3.2"
+  },
+  "autoload": {
+    "psr-4": { "micayael\\MicayaelCommandsBundle\\": "" }
+  }
+}

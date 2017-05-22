@@ -1,6 +1,6 @@
 <?php
 
-namespace micayael\MicayaelCommandsBundle;
+namespace Micayael\CommandsBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

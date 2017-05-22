@@ -3,12 +3,17 @@
   "type": "symfony-bundle",
   "description": "Useful commands for Symfony2+",
   "keywords": ["command"],
-  "homepage": "",
+  "homepage": "https://github.com/micayael/commands-bundle",
   "license": "MIT",
   "require": {
-    "php": ">=5.3.2"
+    "php": ">=5.3.2",
+    "symfony/config": "^3.2",
+    "symfony/dependency-injection": "^3.2",
+    "symfony/http-kernel": "^3.2",
+    "symfony/console": "^3.2",
+    "symfony/finder": "^3.2"
   },
   "autoload": {
-    "psr-4": { "micayael\\MicayaelCommandsBundle\\": "" }
+    "psr-4": { "Micayael\\CommandsBundle\\": "" }
   }
 }

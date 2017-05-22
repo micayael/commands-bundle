@@ -1,6 +1,6 @@
 <?php
 
-namespace Dncp\Sicp\CoreBundle\Command;
+namespace Micayael\CommandsBundle\Command;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;

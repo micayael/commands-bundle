@@ -1,6 +1,6 @@
 <?php
 
-namespace Micayael\CommandsBundle;
+namespace Micayael\CommandsBundle\DependencyInjection;
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;

@@ -1,7 +1,6 @@
 {
   "name": "micayael/commands-bundle",
   "type": "symfony-bundle",
-  "minimum-stability": "dev",
   "description": "Useful commands for Symfony2+",
   "keywords": ["command"],
   "homepage": "",

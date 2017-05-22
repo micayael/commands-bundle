@@ -134,24 +134,24 @@ EOF
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $this->printTitle($output, 'Verificando código del proyecto');
-
-        $patterns = $input->getArgument('patterns');
-
-        // Si se ingresa la opción --include-vendors, hago merge de los directorios
-        if ($input->getOption('include-vendors')) {
-            foreach ($this->directories as $type => $directories) {
-                if (isset($this->vendorDirectories[$type])) {
-                    $this->directories[$type] = array_merge($this->directories[$type], $this->vendorDirectories[$type]);
-                }
-            }
-        }
-
-        $finder = $this->getFinder($input, $output, $patterns);
-
-        $this->search($input, $output, $finder, $patterns);
-
-        return 0;
+//        $this->printTitle($output, 'Verificando código del proyecto');
+//
+//        $patterns = $input->getArgument('patterns');
+//
+//        // Si se ingresa la opción --include-vendors, hago merge de los directorios
+//        if ($input->getOption('include-vendors')) {
+//            foreach ($this->directories as $type => $directories) {
+//                if (isset($this->vendorDirectories[$type])) {
+//                    $this->directories[$type] = array_merge($this->directories[$type], $this->vendorDirectories[$type]);
+//                }
+//            }
+//        }
+//
+//        $finder = $this->getFinder($input, $output, $patterns);
+//
+//        $this->search($input, $output, $finder, $patterns);
+//
+//        return 0;
     }
 
     private function getFinder(InputInterface $input, OutputInterface $output, $patterns)

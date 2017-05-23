@@ -1,0 +1,6 @@
+services:
+    micayael.command.search_in_files:
+        class: Micayael\CommandsBundle\Command\SearchInFilesCommand
+        arguments: ["%micayael_commands_configs%"]
+        tags:
+            - { name: console.command }

@@ -10,62 +10,53 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Finder\Finder;
 
 class SearchInFilesCommand extends Command
 {
-    private $options = array(
-        'php' => array('php'),
-        'views' => array('twig'),
-        'config' => array('yml'),
-        'styles' => array('scss'),
-        'scripts' => array('js'),
-        'assets' => array('scss', 'js'),
-        'all' => array('php', 'twig', 'yml', 'scss', 'js'),
-    );
+    private $options = [];
+    private $directories = [];
+    private $vendorDirectories = [];
 
-    private $directories = array(
-        'php' => array(
-            'src',
-        ),
-        'twig' => array(
-            'app/Resources/views',
-            'src/AppBundle/Resources/views',
-        ),
-        'yml' => array(
-            'app/config',
-            'src/AppBundle/Resources/config',
-        ),
-        'scss' => array(
-            'app/Resources/assets/src/sass',
-        ),
-        'js' => array(
-            'app/Resources/assets/src/js',
-        ),
-    );
+    public function __construct(array $bundleConfig)
+    {
+        parent::__construct();
 
-    private $vendorDirectories = array(
-        'php' => array(
-            'vendor/dncp/sicp-frontend-core-bundle',
-            'vendor/dncp/sicp-subasta-bundle',
-        ),
-        'twig' => array(
-            'vendor/dncp/sicp-frontend-core-bundle/Resources/views',
-            'vendor/dncp/sicp-subasta-bundle/Resources/views',
-        ),
-        'yml' => array(
-            'vendor/dncp/sicp-frontend-core-bundle/Resources/config',
-            'vendor/dncp/sicp-subasta-bundle/Resources/config',
-        ),
-    );
+        foreach($bundleConfig['options']['project'] as $option => $extensions){
+            foreach($extensions as $extension => $folders){
+                $this->options[$option][] = $extension;
+                $this->options['all'][] = $extension;
+                $this->directories[$extension] = $folders;
+            }
+        }
+
+        // Compila las extensiones de archivos de estilos y scripts
+        $this->options['assets'] = array_merge($this->options['styles'], $this->options['scripts']);
+
+        // Mueve la posición "all" al final
+        $aux = $this->options['all'];
+        unset($this->options['all']);
+        $this->options['all'] = $aux;
+
+        if(isset($bundleConfig['options']['vendors'])){
+
+            foreach ($bundleConfig['options']['vendors'] as $option => $extensions){
+                foreach($extensions as $extension => $folders) {
+                    $this->vendorDirectories[$extension] = $folders;
+                }
+            }
+
+        }
+    }
 
     protected function configure()
     {
-        $this->setName('util:search')
+        $this->setName('app:search')
             ->setDescription('Busca dentro del proyecto errores en el código')
             ->addArgument(
                 'patterns',
-                InputArgument::IS_ARRAY | InputArgument::REQUIRED,
+                InputArgument::IS_ARRAY,
                 'Patrones a ser buscados en el código. Pueden ser varios y contener expresiones regulares.'
             )
             ->addOption(
@@ -134,27 +125,33 @@ EOF
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-//        $this->printTitle($output, 'Verificando código del proyecto');
-//
-//        $patterns = $input->getArgument('patterns');
-//
-//        // Si se ingresa la opción --include-vendors, hago merge de los directorios
-//        if ($input->getOption('include-vendors')) {
-//            foreach ($this->directories as $type => $directories) {
-//                if (isset($this->vendorDirectories[$type])) {
-//                    $this->directories[$type] = array_merge($this->directories[$type], $this->vendorDirectories[$type]);
-//                }
-//            }
-//        }
-//
-//        $finder = $this->getFinder($input, $output, $patterns);
-//
-//        $this->search($input, $output, $finder, $patterns);
-//
-//        return 0;
+        $io = new SymfonyStyle($input, $output);
+        $io->title('Buscando patrones de texto');
+
+        $patterns = $input->getArgument('patterns');
+
+        if(empty($patterns)){
+            $patterns = $io->ask('Qué texto o textos desea buscar?');
+            $patterns = explode(' ', $patterns);
+        }
+
+        // Si se ingresa la opción --include-vendors, hago merge de los directorios
+        if ($input->getOption('include-vendors')) {
+            foreach ($this->directories as $type => $directories) {
+                if (isset($this->vendorDirectories[$type])) {
+                    $this->directories[$type] = array_merge($this->directories[$type], $this->vendorDirectories[$type]);
+                }
+            }
+        }
+
+        $finder = $this->getFinder($input, $output, $io, $patterns);
+
+        $this->search($input, $output, $io, $finder, $patterns);
+
+        return 0;
     }
 
-    private function getFinder(InputInterface $input, OutputInterface $output, $patterns)
+    private function getFinder(InputInterface $input, OutputInterface $output, SymfonyStyle $io, $patterns)
     {
         $finder = new Finder();
 
@@ -183,13 +180,12 @@ EOF
             $typesToSearch = array('php');
             $directoriesToSearch = $this->directories['php'];
 
-            $output->writeln(
-                '->    Se busca por defecto en archivos <comment>"php"</comment>'
-            );
+            $io->section('Se busca por defecto en archivos <comment>"php"</comment>');
+
         } else {
             $auxToPrint = '"'.implode('", "', $typesToSearch).'"';
 
-            $output->writeln("->    Iniciando la busqueda para archivos: <comment>$auxToPrint</comment>");
+            $io->section("Iniciando la busqueda para archivos: <comment>$auxToPrint</comment>");
         }
 
         // Muestra los patrones a ser buscados
@@ -201,21 +197,24 @@ EOF
             $msgCase = 'case sensitive';
         }
 
-        $output->writeln("->    Patrones a buscar: <comment>$auxToPrint</comment> [<info>$msgCase</info>]");
+        $io->text("Patrones a buscar: <comment>$auxToPrint</comment> [<info>$msgCase</info>]");
 
         // Si es verbose muestra los directorios en donde se realizarán las búsquedas
         if ($output->isVerbose()) {
-            $output->writeln('->    Se busca en los siguientes directorios: ');
+
+            $io->text('Se busca en los siguientes directorios:');
+
+            $msgList = [];
 
             foreach ($this->directories as $type => $dirs) {
                 if (in_array($type, $typesToSearch)) {
                     $auxToPrint = '"'.implode('", "', $dirs).'"';
 
-                    $output->writeln("->        $type: <comment>$auxToPrint</comment>");
+                    $msgList[] = "$type: <comment>$auxToPrint</comment>";
                 }
             }
 
-            $output->writeln('');
+            $io->listing($msgList);
         }
 
         // Asigna los directorios en donde buscar
@@ -251,16 +250,12 @@ EOF
         return $finder;
     }
 
-    private function search(InputInterface $input, OutputInterface $output, Finder $finder, array $patterns)
+    private function search(InputInterface $input, OutputInterface $output, SymfonyStyle $io, Finder $finder, array $patterns)
     {
         $escapedPatterns = '/('.implode('|', $patterns).')/';
 
         if ($input->getOption('i')) {
             $escapedPatterns .= 'i';
-        }
-
-        if ($output->isVerbose()) {
-            $output->writeln('->    Archivos encontrados: ');
         }
 
         $nro = 1;
@@ -278,10 +273,6 @@ EOF
 
             $files[] = $filename;
 
-            if ($output->isVerbose()) {
-                $output->writeln("->        <comment>$filename</comment>");
-            }
-
             $splFile = new \SplFileObject($file);
             $grepped = new \RegexIterator($splFile, $escapedPatterns);
 
@@ -297,8 +288,20 @@ EOF
             }
         }
 
-        $output->writeln(sprintf('->    Resultados encontrados: <comment>%d</comment>', count($rows)));
-        $output->writeln('');
+        if ($output->isVerbose()) {
+            $io->text('Archivos encontrados:');
+
+            $filesStyled = [];
+
+            foreach ($files as $f){
+                $filesStyled[] = '<comment>' . $f . '</comment>';
+            }
+
+            $io->listing($filesStyled);
+        }
+
+        $io->text(sprintf('Resultados encontrados: <comment>%d</comment>', count($rows)));
+        $io->newLine();
 
         if ($rows) {
             $this->showResults($output, $rows);
@@ -315,6 +318,9 @@ EOF
         $fileLineText = preg_replace('/\s+/', ' ', $fileLineText);
         // se agrega color a los patrones encontrados
         $fileLineText = preg_replace($escapedPatterns, '<error>$1</error>', $fileLineText);
+        // en caso de que antes de la etiqueta <error> haya una barra invertida agrego un espacio para que no
+        // intente escapar el caracter "<"
+        $fileLineText = str_replace('\\<error>', '\\ <error>', $fileLineText);
 
         // si el texto de la linea es muy largo lo corto
         if (strlen($fileLineText) > 60) {
@@ -326,6 +332,7 @@ EOF
             $fileName = wordwrap($fileName, 60, PHP_EOL, true);
         }
 
+        // se pinta la palabra vendor en la ruta del archivo
         $fileName = preg_replace("/^vendor\//", '<comment>$0</comment>', $fileName);
 
         $ret = array(
@@ -349,7 +356,7 @@ EOF
             if ($type != $row[2]) {
                 $type = $row[2];
                 $option = $this->getOptionName($type);
-                $table->addRow(array(new TableCell($option, array('colspan' => 4))));
+                $table->addRow(array(new TableCell('<comment>'.$option.'</comment>', array('colspan' => 4))));
                 $table->addRow(new TableSeparator());
             }
 

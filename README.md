@@ -1,3 +1,11 @@
+# MicayaelCommandsBundle
+
+This bundle add useful commands to your project.
+
+The bundle includes:
+
+  * app:search: Find exact texts or patterns within your code Allowing you to define where to look for them
+
 Installation
 ============
 
@@ -90,16 +98,18 @@ Step 4: Use the command
 ### Search a text into php files
 ```php
 bin/console app:search text_to_find
+bin/console app:search --php text_to_find
 ```
 
-### Search multiple texts on php files
+### Search multiple texts on php files, icase sensitive
 ```php
-bin/console app:search text_to_find1 text_to_find2
+bin/console app:search -php -i text_to_find1 text_to_find2
 ```
 
-### Search patterns on php files
+### Search patterns on php files: $this->get(), dump()
 ```php
-bin/console app:search '\-\>indexAction\('
+bin/console app:search '\$this\-\>get\('
+bin/console app:search 'dump\(' --include-vendors
 ```
 
 ### Search a text into configs en javascripts
@@ -126,4 +136,9 @@ bin/console app:search --all --include-vendors text_to_find1
 ### Search a text php files, included vendors
 ```php
 bin/console app:search --php --include-vendors text_to_find1
+```
+
+### Search a text php files in verbose mode to show search folders and files found
+```php
+bin/console app:search --php text_to_find1 -vvv
 ```

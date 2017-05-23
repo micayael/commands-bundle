@@ -32,7 +32,15 @@ class SearchInFilesCommand extends Command
         }
 
         // Compila las extensiones de archivos de estilos y scripts
-        $this->options['assets'] = array_merge($this->options['styles'], $this->options['scripts']);
+        $this->options['assets'] = [];
+
+        if(isset($this->options['styles'])){
+            $this->options['assets'] = array_merge($this->options['assets'], $this->options['styles']);
+        }
+
+        if(isset($this->options['scripts'])) {
+            $this->options['assets'] = array_merge($this->options['assets'], $this->options['scripts']);
+        }
 
         // Mueve la posición "all" al final
         $aux = $this->options['all'];

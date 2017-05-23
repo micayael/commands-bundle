@@ -23,8 +23,8 @@ class SearchInFilesCommand extends Command
     {
         parent::__construct();
 
-        foreach($bundleConfig['options']['project'] as $option => $extensions){
-            foreach($extensions as $extension => $folders){
+        foreach ($bundleConfig['options']['project'] as $option => $extensions) {
+            foreach ($extensions as $extension => $folders) {
                 $this->options[$option][] = $extension;
                 $this->options['all'][] = $extension;
                 $this->directories[$extension] = $folders;
@@ -39,14 +39,12 @@ class SearchInFilesCommand extends Command
         unset($this->options['all']);
         $this->options['all'] = $aux;
 
-        if(isset($bundleConfig['options']['vendors'])){
-
-            foreach ($bundleConfig['options']['vendors'] as $option => $extensions){
-                foreach($extensions as $extension => $folders) {
+        if (isset($bundleConfig['options']['vendors'])) {
+            foreach ($bundleConfig['options']['vendors'] as $option => $extensions) {
+                foreach ($extensions as $extension => $folders) {
                     $this->vendorDirectories[$extension] = $folders;
                 }
             }
-
         }
     }
 
@@ -130,7 +128,7 @@ EOF
 
         $patterns = $input->getArgument('patterns');
 
-        if(empty($patterns)){
+        if (empty($patterns)) {
             $patterns = $io->ask('Qué texto o textos desea buscar?');
             $patterns = explode(' ', $patterns);
         }
@@ -181,7 +179,6 @@ EOF
             $directoriesToSearch = $this->directories['php'];
 
             $io->section('Se busca por defecto en archivos <comment>"php"</comment>');
-
         } else {
             $auxToPrint = '"'.implode('", "', $typesToSearch).'"';
 
@@ -201,7 +198,6 @@ EOF
 
         // Si es verbose muestra los directorios en donde se realizarán las búsquedas
         if ($output->isVerbose()) {
-
             $io->text('Se busca en los siguientes directorios:');
 
             $msgList = [];
@@ -293,8 +289,8 @@ EOF
 
             $filesStyled = [];
 
-            foreach ($files as $f){
-                $filesStyled[] = '<comment>' . $f . '</comment>';
+            foreach ($files as $f) {
+                $filesStyled[] = '<comment>'.$f.'</comment>';
             }
 
             $io->listing($filesStyled);

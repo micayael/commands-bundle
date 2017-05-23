@@ -4,7 +4,7 @@ This bundle add useful commands to your project.
 
 The bundle includes:
 
-  * app:search: Find exact texts or patterns within your code Allowing you to define where to look for them
+  * app:search: Find exact texts or patterns within your code, allowing you to define where to look for them
 
 Installation
 ============
@@ -16,7 +16,7 @@ Open a command console, enter your project directory and execute the
 following command to download the latest stable version of this bundle:
 
 ```console
-$ composer require micayael/commands-bundle "master"
+$ composer require micayael/commands-bundle
 ```
 
 This command requires you to have Composer installed globally, as explained

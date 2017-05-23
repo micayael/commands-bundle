@@ -13,7 +13,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Finder\Finder;
 
-class SearchInFilesCommand extends Command
+class SearchInCodeCommand extends Command
 {
     private $options = [];
     private $directories = [];

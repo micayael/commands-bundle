@@ -15,7 +15,7 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->arrayNode('options')
+                ->arrayNode('search_in_code')
                     ->isRequired()
                     ->append($this->addProjectOptionsNode())
                     ->append($this->addVendorsOptionsNode())

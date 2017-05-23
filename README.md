@@ -54,4 +54,4 @@ class AppKernel extends Kernel
 Full Documentation and examples
 -------------------------------
 
-- [Search in Code - app:search](/micayael/commands-bundle/blob/master/Resources/doc/search_in_code.yml) 
+- [Search in Code - app:search](https://github.com/micayael/commands-bundle/blob/master/Resources/doc/search_in_code.md) 

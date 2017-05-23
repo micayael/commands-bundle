@@ -4,7 +4,7 @@ This bundle add useful commands to your project.
 
 The bundle includes:
 
-  * app:search: Find exact texts or patterns within your code, allowing you to define where to look for them
+  - **app:search:** Find exact texts or patterns within your code, allowing you to define where to look for them
 
 Installation
 ============

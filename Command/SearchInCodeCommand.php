@@ -23,7 +23,9 @@ class SearchInCodeCommand extends Command
     {
         parent::__construct();
 
-        foreach ($bundleConfig['options']['project'] as $option => $extensions) {
+        $configs = $bundleConfig['search_in_code'];
+
+        foreach ($configs['project'] as $option => $extensions) {
             foreach ($extensions as $extension => $folders) {
                 $this->options[$option][] = $extension;
                 $this->options['all'][] = $extension;
@@ -47,8 +49,8 @@ class SearchInCodeCommand extends Command
         unset($this->options['all']);
         $this->options['all'] = $aux;
 
-        if (isset($bundleConfig['options']['vendors'])) {
-            foreach ($bundleConfig['options']['vendors'] as $option => $extensions) {
+        if (isset($configs['vendors'])) {
+            foreach ($configs['vendors'] as $option => $extensions) {
                 foreach ($extensions as $extension => $folders) {
                     $this->vendorDirectories[$extension] = $folders;
                 }
@@ -59,72 +61,73 @@ class SearchInCodeCommand extends Command
     protected function configure()
     {
         $this->setName('app:search')
-            ->setDescription('Busca dentro del proyecto errores en el código')
+            ->setDescription('Find exact texts or patterns within your code, allowing you to define where to look for them')
             ->addArgument(
                 'patterns',
                 InputArgument::IS_ARRAY,
-                'Patrones a ser buscados en el código. Pueden ser varios y contener expresiones regulares.'
+                'Patterns to be searched in code. They can be several and contain regular expressions'
             )
             ->addOption(
                 'php',
                 null,
                 InputOption::VALUE_NONE,
-                'Si se usa busca los patrones en los archivos que contienen php'
+                'If it is added it looks for the patterns in the files that contain "php"'
             )
             ->addOption(
                 'views',
                 null,
                 InputOption::VALUE_NONE,
-                'Si se usa busca los patrones en los archivos twig'
+                'If it is added it looks for the patterns in the files that contain "twig"'
             )
             ->addOption(
                 'config',
                 null,
                 InputOption::VALUE_NONE,
-                'Si se usa busca los patrones en los archivos yml'
+                'If it is added it looks for the patterns in the files that contain "yml"'
             )
             ->addOption(
                 'styles',
                 null,
                 InputOption::VALUE_NONE,
-                'Si se usa busca los patrones en los archivos css y sass'
+                'If it is added it looks for the patterns in the files that contain "css", "sass", "less"'
             )
             ->addOption(
                 'scripts',
                 null,
                 InputOption::VALUE_NONE,
-                'Si se usa busca los patrones en los archivos js'
+                'If it is added it looks for the patterns in the files that contain "js"'
             )
             ->addOption(
                 'assets',
                 null,
                 InputOption::VALUE_NONE,
-                'Si se usa busca los patrones en los archivos css y js'
+                'If it is added it looks for the patterns in the files defined in "styles" and "scripts"'
             )
             ->addOption(
                 'all',
                 null,
                 InputOption::VALUE_NONE,
-                'Si se usa busca los patrones en todos los tipos de archivos'
+                'If it is added it looks for the patterns in all the files'
             )
             ->addOption(
                 'include-vendors',
                 null,
                 InputOption::VALUE_NONE,
-                'Si se usa incluye carpetas vendors como el core del frontend'
+                'If it is added it looks for the patterns into the vendors defined in config.yml'
             )
             ->addOption(
                 'i',
                 '-i',
                 InputOption::VALUE_NONE,
-                'Indica si se quiere realizar la busqueda sin importar mayúsculas o minúsculas. Por defecto es case sensitive.'
+                'Indicates if you want to perform the search regardless of case. Default is case sensitive'
             )
             ->setHelp(
                 <<<EOF
-El comando <info>%command.name%</info> busca dentro del proyecto ciertos patrones de texto que pueden
-se buscados según se indiquen las opciones. Pueden ser ingresados varios patrones separados por un espacio. En caso
-de que se desee enviar caracteres especiales en los patrones, estos deberán ser encerrados con comillas simples. También
-es posible enviar entre comillas expresiones regulares para ser buscadas.
+The <info>%command.name%</info> command searches within the project for certain text patterns that can
+Be searched as indicated by the options in config.yml. You can enter several patterns separated by a space.
+
+In case you want to search for special characters in the patterns, they must be enclosed in quotation marks. As well
+It is possible to indicate in quotation marks regular expressions to be searched.
 EOF
             );
     }

@@ -12,17 +12,18 @@ Configure the Bundle
 
 ```yaml
 micayael_commands:
-    options:
+    search_in_code:
         project:
             php:
                 php: [src]
+        vendors: ~
 ```
 
 ### Full configuration
 
 ```yaml
 micayael_commands:
-    options:
+    search_in_code:
         project:
             php:
                 php: [src]

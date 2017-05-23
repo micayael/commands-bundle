@@ -34,11 +34,11 @@ class SearchInCodeCommand extends Command
         // Compila las extensiones de archivos de estilos y scripts
         $this->options['assets'] = [];
 
-        if(isset($this->options['styles'])){
+        if (isset($this->options['styles'])) {
             $this->options['assets'] = array_merge($this->options['assets'], $this->options['styles']);
         }
 
-        if(isset($this->options['scripts'])) {
+        if (isset($this->options['scripts'])) {
             $this->options['assets'] = array_merge($this->options['assets'], $this->options['scripts']);
         }
 

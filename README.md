@@ -55,3 +55,4 @@ Full Documentation and examples
 -------------------------------
 
 - [Search in Code - app:search](https://github.com/micayael/commands-bundle/blob/master/Resources/doc/search_in_code.md) 
+- [Verify Code - app:verify](https://github.com/micayael/commands-bundle/blob/master/Resources/doc/verify.md) 

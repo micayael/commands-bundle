@@ -20,6 +20,9 @@ class Configuration implements ConfigurationInterface
                     ->append($this->addProjectOptionsNode())
                     ->append($this->addVendorsOptionsNode())
                 ->end()
+                ->arrayNode('verify')
+                    ->append($this->addVerifyPatternsNode())
+                ->end()
             ->end()
         ;
 
@@ -109,6 +112,40 @@ class Configuration implements ConfigurationInterface
                 ->end()
             ->end()
             ->isRequired()
+        ;
+
+        return $node;
+    }
+
+    private function addVerifyPatternsNode()
+    {
+        $builder = new TreeBuilder();
+        $node = $builder->root('patterns');
+
+        $node
+            ->info('This patterns will be looked for using folders defined in <info>search_in_code</info> command config')
+            ->children()
+                ->arrayNode('php')
+                    ->prototype('scalar')->end()
+                    ->info('Patterns to look for in php files')
+                ->end()
+                ->arrayNode('views')
+                    ->prototype('scalar')->end()
+                    ->info('Patterns to look for in view files (twig)')
+                ->end()
+                ->arrayNode('config')
+                    ->prototype('scalar')->end()
+                    ->info('Patterns to look for in config files (yml)')
+                ->end()
+                ->arrayNode('styles')
+                    ->prototype('scalar')->end()
+                    ->info('Patterns to look for in style files (css, sass)')
+                ->end()
+                ->arrayNode('scripts')
+                    ->prototype('scalar')->end()
+                    ->info('Patterns to look for in script files (js)')
+                ->end()
+            ->end()
         ;
 
         return $node;

@@ -1,6 +1,14 @@
 services:
     micayael.command.search_in_files:
         class: Micayael\CommandsBundle\Command\SearchInCodeCommand
+        public: false
+        arguments: ["%micayael_commands_configs%"]
+        tags:
+            - { name: console.command }
+
+    micayael.command.verify:
+        class: Micayael\CommandsBundle\Command\VerifyCodeCommand
+        public: false
         arguments: ["%micayael_commands_configs%"]
         tags:
             - { name: console.command }

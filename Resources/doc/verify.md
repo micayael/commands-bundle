@@ -20,7 +20,7 @@ micayael_commands:
                 - 'exit\(.*\)'
                 - 'echo\(.*\)'
                 - 'echo\ \(.*\)'
-                - "echo\\ \\'.*\\'" #Double backslashed because deprecation: http://symfony.com/blog/new-in-symfony-2-8-yaml-deprecations#deprecated-non-escaped-in-double-quoted-strings
+                - "echo\\ \\'.*\\'"
                 - 'echo\ \".*\"'
                 - 'print_r\(.*\)'
                 - 'var_dump\(.*\)'
@@ -39,6 +39,14 @@ micayael_commands:
 >
 > This command use the [configuration](https://github.com/micayael/commands-bundle/blob/master/Resources/doc/search_in_code.md) 
 of the **app:search** command to know where to search theese patterns
+>
+> Characters that can be detected as part of the regular expression
+> must be escaped with a single backslash. Example: single quotes,
+> double quotes, parenthesis, spaces.
+>
+> When you want to search for single quotes, you must enclose the
+> pattern with double quotation marks, escaping the characters to be
+> searched with double backslash. [See this](http://symfony.com/blog/new-in-symfony-2-8-yaml-deprecations#deprecated-non-escaped-in-double-quoted-strings)
 
 Examples
 ----------------------------

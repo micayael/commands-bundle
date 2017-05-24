@@ -20,7 +20,7 @@ micayael_commands:
                 - 'exit\(.*\)'
                 - 'echo\(.*\)'
                 - 'echo\ \(.*\)'
-                - "echo\\ \\'.*\\'"
+                - "echo\\ \\'.*\\'" #Double backslashed because deprecation: http://symfony.com/blog/new-in-symfony-2-8-yaml-deprecations#deprecated-non-escaped-in-double-quoted-strings
                 - 'echo\ \".*\"'
                 - 'print_r\(.*\)'
                 - 'var_dump\(.*\)'

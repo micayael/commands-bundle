@@ -12,3 +12,23 @@ services:
         arguments: ["%micayael_commands_configs%"]
         tags:
             - { name: console.command }
+
+    micayael.command.phpcs:
+        class: Micayael\CommandsBundle\Command\CSFixerCommand
+        public: false
+        arguments: ["%micayael_commands_configs%"]
+        tags:
+            - { name: console.command }
+
+    micayael.command.test:
+        class: Micayael\CommandsBundle\Command\TestsCommand
+        public: false
+        arguments: ["%micayael_commands_configs%"]
+        tags:
+            - { name: console.command }
+
+    micayael.command.precommit:
+        class: Micayael\CommandsBundle\Command\PrecommitCommand
+        public: false
+        tags:
+            - { name: console.command }

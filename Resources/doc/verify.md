@@ -6,7 +6,7 @@ Verify the Code
 Look for common errors in the code within the project
 
 Configure the Bundle
-----------------------------
+--------------------
 
 ### Minimal Default configuration
 
@@ -49,7 +49,7 @@ of the **app:search** command to know where to search theese patterns
 > searched with double backslash. [See this](http://symfony.com/blog/new-in-symfony-2-8-yaml-deprecations#deprecated-non-escaped-in-double-quoted-strings)
 
 Examples
-----------------------------
+--------
 
 ### Search patterns
 ```php

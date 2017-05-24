@@ -6,6 +6,9 @@ The bundle includes:
 
   - **app:search:** Find exact texts or patterns within your code, allowing you to define where to look for them
   - **app:verify:** Look for common errors in the code within the project
+  - **app:phpcs:** Format de code using php-cs-fixer
+  - **app:test:** Execute unit tests using phpunit
+  - **app:precommit:** Execute commands before commit changes
 
 Installation
 ============
@@ -17,7 +20,7 @@ Open a command console, enter your project directory and execute the
 following command to download the latest stable version of this bundle:
 
 ```console
-$ composer require micayael/commands-bundle
+$ composer require --dev micayael/commands-bundle
 ```
 
 This command requires you to have Composer installed globally, as explained
@@ -57,3 +60,6 @@ Full Documentation and examples
 
 - [Search in Code - app:search](https://github.com/micayael/commands-bundle/blob/master/Resources/doc/search_in_code.md) 
 - [Verify Code - app:verify](https://github.com/micayael/commands-bundle/blob/master/Resources/doc/verify.md) 
+- [Code Formatter - app:phpcs](https://github.com/micayael/commands-bundle/blob/master/Resources/doc/code_formatter.md) 
+- [Code Tester - app:test](https://github.com/micayael/commands-bundle/blob/master/Resources/doc/code_tester.md) 
+- [Pre Commit - app:precommit](https://github.com/micayael/commands-bundle/blob/master/Resources/doc/precommit.md) 

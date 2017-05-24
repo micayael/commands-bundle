@@ -23,6 +23,22 @@ class Configuration implements ConfigurationInterface
                 ->arrayNode('verify')
                     ->append($this->addVerifyPatternsNode())
                 ->end()
+                ->arrayNode('code_formatter')
+                    ->children()
+                        ->scalarNode('phpcsfixer_bin')
+                            ->isRequired()
+                        ->end()
+                    ->end()
+                ->end()
+
+                ->arrayNode('code_tester')
+                    ->children()
+                        ->scalarNode('phpunit_bin')
+                            ->isRequired()
+                        ->end()
+                    ->end()
+                ->end()
+
             ->end()
         ;
 

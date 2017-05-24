@@ -6,7 +6,7 @@ Search In Code command
 Find exact texts or patterns within your code, allowing you to define where to look for them
 
 Configure the Bundle
-----------------------------
+--------------------
 
 ### Minimal configuration
 
@@ -48,7 +48,7 @@ micayael_commands:
 ```
 
 Examples
-----------------------------
+--------
 
 ### Search a text into php files
 ```php

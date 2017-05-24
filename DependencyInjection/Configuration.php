@@ -35,6 +35,7 @@ class Configuration implements ConfigurationInterface
         $node = $builder->root('project');
 
         $node
+            ->info('File extension list and folders to know where to look for inside the project')
             ->children()
                 ->arrayNode('php')
                     ->requiresAtLeastOneElement()->isRequired()
@@ -84,6 +85,7 @@ class Configuration implements ConfigurationInterface
         $node = $builder->root('vendors');
 
         $node
+            ->info('File extension list and folders to know where to look for inside the vendors')
             ->children()
                 ->arrayNode('php')
                     ->prototype('array')

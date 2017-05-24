@@ -16,7 +16,7 @@ class VerifyCodeCommand extends Command
     {
         parent::__construct();
 
-        if(isset($bundleConfig['verify'])) {
+        if (isset($bundleConfig['verify'])) {
             $this->patterns = $bundleConfig['verify']['patterns'];
         }
     }
@@ -39,21 +39,19 @@ EOF
 
         $command = $this->getApplication()->find('app:search');
 
-        if(empty($this->patterns)){
+        if (empty($this->patterns)) {
             $io->error('Este comando no se encuentra configurado.');
 
             return;
         }
 
         foreach ($this->patterns as $option => $patterns) {
-
-            if(!empty($patterns)) {
-
+            if (!empty($patterns)) {
                 $input = new ArrayInput(
                     array(
                         'command' => 'app:search',
                         'patterns' => $patterns,
-                        '--' . $option => true,
+                        '--'.$option => true,
                     )
                 );
 

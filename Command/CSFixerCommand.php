@@ -49,8 +49,10 @@ EOF
         $builder->setPrefix($this->phpcsfixerBin);
 
         $process = $builder
-            ->setArguments(array('fix', '.', '-vv'))
+            ->setArguments(array('fix', '-vv'))
             ->getProcess();
+
+        $process->setTimeout(0);
 
         if ($output->isVerbose()) {
             $io->text('php-cs-fixer: '.$this->phpcsfixerBin);

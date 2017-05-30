@@ -51,6 +51,8 @@ EOF
         $process = $builder
             ->getProcess();
 
+        $process->setTimeout(0);
+
         if ($output->isVerbose()) {
             $io->text('phpunit: '.$this->phpunitBin);
             $io->text('Ejecutando: '.str_replace("' '", ' ', $process->getCommandLine()));

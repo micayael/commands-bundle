@@ -42,11 +42,11 @@ class AppKernel extends Kernel
 {
     public function registerBundles()
     {
-        $bundles = array(
+        if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
             // ...
 
-            new Micayael\CommandsBundle\MicayaelCommandsBundle(),
-        );
+            $bundles[] = new Micayael\CommandsBundle\MicayaelCommandsBundle();
+        }
 
         // ...
     }

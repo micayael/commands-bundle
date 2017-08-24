@@ -17,7 +17,7 @@ Configure the Bundle
 ```yaml
 micayael_commands:
     code_formatter:
-        phpcsfixer_bin: %php_cs_fixer.binary%
+        phpcsfixer_bin: "%php_cs_fixer.binary%"
 ```
 
 ### Add php-cs-fixer configuration (optional)

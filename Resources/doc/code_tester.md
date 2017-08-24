@@ -17,7 +17,7 @@ Configure the Bundle
 ```yaml
 micayael_commands:
     code_tester:
-        phpunit_bin: %phpunit.binary%
+        phpunit_bin: "%phpunit.binary%"
 ```
 
 Examples

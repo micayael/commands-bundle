@@ -29,6 +29,6 @@ services:
 
     micayael.command.precommit:
         class: Micayael\CommandsBundle\Command\PrecommitCommand
-        public: false
+        public: true
         tags:
             - { name: console.command }

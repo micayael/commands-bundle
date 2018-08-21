@@ -6,9 +6,10 @@ $finder = PhpCsFixer\Finder::create()
 ;
 
 return PhpCsFixer\Config::create()
-    ->setUsingCache(false)
     ->setRules([
         '@Symfony' => true,
+        'array_syntax' => ['syntax' => 'short'],
+        'phpdoc_var_without_name' => false,
     ])
     ->setFinder($finder)
 ;

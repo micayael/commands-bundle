@@ -1,0 +1,32 @@
+search_in_code:
+    description: Find exact texts or patterns within your code, allowing you to define where to look for them
+    help: |
+            The <info>%command.name%</info> command searches within the project for certain text patterns that can
+            be searched as indicated by the bundle's options. You can enter several patterns separated by a space.
+
+            In case you want to search for special characters in the patterns, they must be enclosed in quotation marks. As well
+            it is possible to indicate in quotation marks regular expressions to be searched.
+    arguments:
+        patterns: Patterns to be searched in code. They can be several and contain regular expressions
+    options:
+        icase: Indicates if you want to perform the search regardless of case sensitive. Default is case sensitive
+        word_wrap: Max size of the table results
+        csv: Return results in CSV format into this file
+        include_vendors: Looks too within vendors that were defined in the bundle configuration
+        only_vendors: Looks only within vendors that were defined in the bundle configuration
+        all: Looks for patterns in all configured places
+        option_x: If it is added it looks for the patterns in files that contains <info>"%extensions%"</info>
+
+    msgs:
+        patterns_missing_question: "What text or pattern are you searching for?:"
+        patterns_missing_error: You should give me some text or pattern to search for!
+        start: Buscando patrones de texto
+        searching_in_this_directories: "Se busca en los siguientes directorios:"
+        files_found: "Archivos encontrados: <comment>%count%</comment>"
+        lines_found: "Lineas encontradas: <comment>%count%</comment>"
+
+    table_titles:
+        number: "#"
+        filename: Filename
+        file_number: "Line #"
+        pattern: Text or Pattern

@@ -1,8 +1,10 @@
 {
   "name": "micayael/commands-bundle",
+  "description": "Useful commands for Symfony4.1+",
   "type": "symfony-bundle",
-  "description": "Useful commands for Symfony2+",
-  "keywords": ["command"],
+  "keywords": [
+    "command"
+  ],
   "homepage": "https://github.com/micayael/commands-bundle",
   "license": "MIT",
   "authors": [
@@ -13,19 +15,29 @@
     }
   ],
   "require": {
-    "php": ">=5.3.2",
-    "symfony/config": "~2.8|~3.0|~4.0",
-    "symfony/console": "~2.8|~3.0|~4.0",
-    "symfony/dependency-injection": "~2.8|~3.0|~4.0",
-    "symfony/finder": "~2.8|~3.0|~4.0",
-    "symfony/http-kernel": "~2.8|~3.0|~4.0"
+    "php": "^7.1.3",
+    "symfony/http-kernel": "^4.1",
+    "symfony/dependency-injection": "^4.1",
+    "symfony/console": "^4.1",
+    "symfony/config": "^4.1",
+    "symfony/finder": "^4.1",
+    "symfony/translation": "^4.1",
+    "symfony/yaml": "^4.1"
   },
   "require-dev": {
-    "friendsofphp/php-cs-fixer": "^2.3",
-    "phpunit/phpunit": "^6.1"
+    "friendsofphp/php-cs-fixer": "^2.12",
+    "symfony/framework-bundle": "^4.1",
+    "symfony/var-dumper": "^4.1"
   },
   "autoload": {
-    "psr-4": { "Micayael\\CommandsBundle\\": "" }
+    "psr-4": {
+      "Micayael\\CommandsBundle\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Micayael\\CommandsBundle\\Tests\\": "tests/"
+    }
   },
   "config": {
     "sort-packages": true

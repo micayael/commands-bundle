@@ -1,0 +1,31 @@
+#!/usr/bin/env php
+<?php
+
+use Micayael\CommandsBundle\Command\SearchInCodeCommand;
+use Micayael\CommandsBundle\Kernel;
+use Symfony\Component\Console\Application;
+use Symfony\Component\Console\Input\ArgvInput;
+
+require __DIR__ . '/../vendor/autoload.php';
+
+$input = new ArgvInput();
+
+$kernel = new Kernel('dev');
+$kernel->boot();
+
+$application = new Application();
+
+$application->add(new SearchInCodeCommand(
+    $kernel->getContainer()->get('translator'),
+    [
+        'default_option' => 'php',
+        'app' => [
+            'php' => [
+                'php' => ['src']
+            ]
+        ],
+        'vendors' => [],
+    ]
+));
+
+$application->run($input);
